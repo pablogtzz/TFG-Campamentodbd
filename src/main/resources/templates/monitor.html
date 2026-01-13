@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Monitores</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/monitores.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+<div class="content">
+    <header>
+        <h1>Monitores</h1>
+        <div>
+            <input type="text" id="searchInput" placeholder="Buscar monitores...">
+            <button class="add-monitor" id="addMonitorBtn">Añadir monitor</button>
+            <a class="logout-btn" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+    </header>
+
+    <div th:classappend="${errorMessage != null && !errorMessage.isEmpty()} ? 'show' : ''" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div class="monitoresInfo" id="monitoresInfo">
+        <!-- Iteración sobre la lista de monitores -->
+        <div th:each="user : ${users}" class="monitor-card">
+            <img th:src="@{/images/perfil.png}" class="monitor-image" alt="Imagen del monitor">
+            <div class="monitor-details">
+                <h2 th:text="${user.nombre} + ' ' + ${user.apellidos}" class="monitor-name"></h2>
+                <p th:text="'Grupo: ' + (${user.grupo} != null ? ${user.grupo.nombre} : 'Sin grupo')"></p>            </div>
+            <button th:id="'btn-ver-' + ${user.id}"
+                    class="btn-ver"
+                    th:data-nombre="${user.nombre} + ' ' + ${user.apellidos}"
+                    th:data-username="${user.username}"
+                    th:data-telefono="${user.telefono}"
+                    th:data-email="${user.email}"
+                    th:data-rol="${user.role}"
+                    th:data-grupo="${user.grupo} != null ? ${user.grupo.nombre} : 'Sin grupo'"
+                    th:data-subgrupo="${user.subgrupo != null ? user.subgrupo.nombre : 'No está en ningún subgrupo'}">
+                    <!--th:data-alergias="${user.alergias != null ? user.alergias.stream().map(alergia -> alergia.nombre).collect(Collectors.joining(', ')) : 'No tiene alergias'}">-->
+                VER
+            </button>
+            <form th:action="@{/monitores/{id}(id=${user.id})}" method="post" class="eliminar-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="delete-btn"
+                        onclick="return confirm('¿Estás seguro de eliminar este monitor?')">Eliminar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+    © 2024 Asociación de Campamento Aventura. Todos los derechos reservados.
+</footer>
+<form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+
+<!-- Modal para ver datos del monitor -->
+<div id="monitorModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalMonitorName">Nombre del Monitor</h2>
+        <p id="modalMonitorUsername">Username</p>
+        <p id="modalMonitorPhone">Teléfono</p>
+        <p id="modalMonitorEmail">Email</p>
+        <p id="modalMonitorRole">Rol</p>
+        <p id="modalMonitorGroup">Grupo</p>
+        <p id="modalMonitorSubgroup">Subgrupo</p>
+        <p id="modalMonitorAllergies">Alergias</p>
+    </div>
+</div>
+
+<!-- Modal para añadir monitor -->
+<div id="addMonitorModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddMonitorModal()">&times;</span>
+        <h2>Añadir monitor</h2>
+        <form id="addMonitorForm" th:action="@{/monitores}" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="grupoId">Grupo:</label>
+            <select id="grupoId" name="grupoId" required>
+                <option th:each="group : ${groups}" th:value="${group.idGrupo}" th:text="${group.nombre}"></option>
+            </select>
+
+            <div>
+                <label for="role">Role:</label>
+                <select id="role" name="role">
+                    <option value="MONITOR">Monitor</option>
+                    <option value="COORDINADOR">Coordinador</option>
+                </select>
+            </div>
+
+            <button type="submit">Añadir monitor</button>
+        </form>
+    </div>
+</div>
+
+<!-- Include JavaScript -->
+<script src="/js/modalDatosMonitores.js"></script>
+<script src="/js/searchMonitores.js"></script>
+<script src="/js/addMonitor.js"></script>
+</body>
+</html>

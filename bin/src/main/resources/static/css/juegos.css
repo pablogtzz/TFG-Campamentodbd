@@ -1,0 +1,204 @@
+body {
+    background-color: #bdc3c7;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin-left: 250px; /* Ancho de la barra lateral */
+    padding: 20px;
+}
+
+header {
+    background-color: #34495e; /* Color de fondo azul oscuro */
+    color: white; /* Color de texto blanco */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 28px;
+    color: #ffffff; /* Color de texto blanco */
+}
+
+header a, .add-group {
+    text-decoration: none;
+    color: #ffffff; /* Color de texto blanco */
+    padding: 8px 15px;
+    background-color: #3498db; /* Color de fondo azul */
+    border-radius: 5px;
+}
+
+.add-group {
+    background-color: #28a745; /* Color de fondo verde */
+}
+
+header a:hover, .add-group:hover {
+    background-color: #2980b9; /* Color de fondo azul más oscuro al pasar el ratón */
+}
+
+.add-group:hover {
+    background-color: #218838; /* Color de fondo verde más oscuro al pasar el ratón */
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.juego-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.juego-card img {
+    max-width: 100%;
+    height: auto; /* Mantener la relación de aspecto */
+    border-radius: 8px; /* Opcional: para bordes redondeados */
+}
+
+.juego-card h2 {
+    font-size: 22px;
+    color: #333;
+}
+
+.juego-card p {
+    font-size: 18px;
+    color: #555;
+}
+
+.btn-ver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn-ver:hover {
+    background-color: #2980b9;
+}
+
+/* Modal CSS */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.modal-content button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content button:hover {
+    background-color: #2980b9;
+}
+
+.delete-btn {
+    background-color: #e74c3c; /* Color de fondo rojo */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; /* Ajusta el margen según sea necesario */
+}
+
+.delete-btn:hover {
+    background-color: #c0392b; /* Color de fondo rojo más oscuro al pasar el ratón */
+}
+
+footer {
+    background-color: #34495e; /* Color de fondo azul oscuro */
+    color: #ffffff; /* Color de texto blanco */
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed; /* Fija el pie de página */
+    bottom: 0; /* Lo coloca en la parte inferior */
+    width: 100%; /* Ancho completo */
+}

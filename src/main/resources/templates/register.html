@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Planificación de Campamentos</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="container register-container">
+    <h2>Registro</h2>
+    <form th:action="@{/usuario/signup}" method="post">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required>
+        </div>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="telefono">Teléfono :</label>
+            <input type="text" id="telefono" name="telefono" required>
+        </div>
+        <label for="grupoId">Grupo:</label>
+        <select id="grupoId" name="grupoId" required>
+            <option th:each="group : ${groups}" th:value="${group.idGrupo}" th:text="${group.nombre}"></option>
+        </select>
+        <div>
+            <label for="role">Role:</label>
+            <select id="role" name="role">
+                <option value="MONITOR">Monitor</option>
+                <option value="COORDINADOR">Coordinador</option>
+            </select>
+        </div>
+        <button type="submit">Sign up</button>
+    </form>
+    <p>Already have an account? <a th:href="@{/usuario/login}">Login</a></p>
+</div>
+</body>
+</html>

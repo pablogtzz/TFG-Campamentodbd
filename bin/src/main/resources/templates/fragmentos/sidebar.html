@@ -1,0 +1,24 @@
+<div class="sidebar" th:fragment="sidebar">
+  <div class="logo">
+    <img src="/images/logo.png" alt="Logo">
+  </div>
+  <nav class="menu">
+    <ul>
+      <li><a th:href="@{/campamento}">Campamento</a></li>
+      <li><a th:href="@{/grupos}">Grupos</a></li>
+      <li><a th:href="@{/kids}">Niños</a></li>
+      <li><a th:href="@{/mis-tareas}">Mis Tareas</a></li>
+      <li><a th:href="@{/grupos-tareas}">Grupos Tareas</a></li>
+      <li><a th:href="@{/juegos}">Juegos</a></li>
+      <li th:if="${user}"><a th:href="@{/asignar-tareas-monitores}">Asignar Tareas Monitores</a></li>
+      <li th:if="${user}"><a th:href="@{/asignar-tareas-grupos}">Asignar Tareas Grupos</a></li>
+      <li th:if="${user}"><a th:href="@{/monitores}">Monitores</a></li>
+    </ul>
+  </nav>
+  <div class="notifications">
+    <!-- Campanita con badge para notificaciones -->
+    <a th:href="@{/notificaciones}" class="notification-icon" onclick="openNotifications()">
+      <i class="fas fa-bell"></i>
+    </a>
+  </div>
+</div>

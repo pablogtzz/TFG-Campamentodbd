@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tareas</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/tareasGrupos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+
+<div class="content">
+    <header>
+        <h1>Tareas</h1>
+        <div>
+            <button id="openModalBtn" class="add-task">Añadir Tarea</button>
+            <a class="logout-btn" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+    </header>
+
+    <div class="tareas-info">
+        <!-- Iteración sobre la lista de tareas -->
+        <div th:each="tarea : ${tareas}" class="tarea-card" th:classappend="${#strings.toLowerCase(tarea.estadoTarea)}">
+            <div class="tarea-details">
+                <h2 th:text="${tarea.nombre}">Nombre de la Tarea</h2>
+                <p th:text="'Estado: ' + ${tarea.estadoTarea}">Estado de la Tarea</p>
+                <p th:if="${tarea.subGrupo != null}" th:text="'Subgrupo: ' + ${tarea.subGrupo.nombre}"></p>
+                <p th:if="${tarea.user != null}"
+                   th:text="'Monitor Asignado: ' + ${tarea.user.nombre} + ' ' + ${tarea.user.apellidos}"></p>
+                <button th:id="'btn-ver-' + ${tarea.idTareaKids}"
+                        class="btn-ver"
+                        th:data-id="${tarea.idTareaKids}"
+                        th:data-nombre="${tarea.nombre}"
+                        th:data-estado="${tarea.estadoTarea}"
+                        th:data-descripcion="${tarea.descripcion}"
+                        th:data-dia="${tarea.dia}"
+                        th:data-subgrupo="${tarea.subGrupo != null ? tarea.subGrupo.nombre : 'No asignado'}"
+                        th:data-monitor="${tarea.user != null ? tarea.user.nombre + ' ' + tarea.user.apellidos : 'No asignado'}">
+                    VER
+                </button>
+                <div>
+                    <form th:action="@{/asignar-tareas-grupos/{id}(id=${tarea.idTareaKids})}" method="post"
+                          class="eliminar-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="delete-btn"
+                                onclick="return confirm('¿Estás seguro de eliminar esta tarea?')">Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2024 Asociación de Campamento Aventura. Todos los derechos reservados.
+</footer>
+<form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+
+<!-- Modal para añadir tarea -->
+<div id="modalNuevaTarea" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalNuevaTarea')">&times;</span>
+        <h2>Añadir nueva tarea</h2>
+        <form th:action="@{/asignar-tareas-grupos}" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" required>
+            <label for="dia">Día:</label>
+            <input type="date" id="dia" name="dia" required>
+            <label for="grupoId">Subgrupo:</label>
+            <select id="grupoId" name="grupoId" required>
+                <option th:each="subGrupo : ${subgrupos}" th:value="${subGrupo.idSubgrupo}"
+                        th:text="${subGrupo.nombre}"></option>
+            </select>
+            <label for="userId">Monitor:</label>
+            <select id="userId" name="userId" required>
+                <option th:each="user : ${monitores}" th:value="${user.id}"
+                        th:text="${user.nombre} + ' ' + ${user.apellidos}"></option>
+            </select>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal para ver tarea -->
+<div id="modalVerTarea" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalVerTarea')">&times;</span>
+        <h2 id="modalTareaNombre">Nombre de la Tarea</h2>
+        <p id="modalTareaEstado">Estado: </p>
+        <p id="modalTareaDescripcion">Descripción: </p>
+        <p id="modalTareaDia">Día: </p>
+        <p id="modalTareaSubGrupo">Subgrupo: </p>
+        <p id="modalTareaMonitor">Monitor Asignado: </p>
+    </div>
+</div>
+
+<script src="/js/addTareas.js"></script>
+<script src="/js/verTarea.js"></script>
+
+</body>
+</html>

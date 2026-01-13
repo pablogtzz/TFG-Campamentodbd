@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Tareas</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/misTareas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+
+<div class="content">
+    <header>
+        <h1>Mis Tareas</h1>
+        <div>
+            <a class="logout-btn" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+    </header>
+
+    <div class="tareas-info">
+        <!-- Iteración sobre la lista de tareas -->
+        <div th:each="tarea : ${tareas}" class="tarea-card" th:classappend="${#strings.toLowerCase(tarea.estadoTarea)}">
+            <!-- Otros detalles de la tarea -->
+            <div class="tarea-details">
+                <h2 th:text="${tarea.nombre}">Nombre de la Tarea</h2>
+                <!-- Otros detalles de la tarea -->
+                <p th:text="'Estado: ' + ${tarea.estadoTarea}">Estado de la Tarea</p>
+                <p th:text="'Dia: ' + ${tarea.dia}">Dia de la Tarea</p>
+                <p th:text="'Descripción: ' + ${tarea.descripcion}">Descripción de la Tarea</p>
+                <p th:if="${tarea.user != null}" th:text="'Monitor Asignado: ' + ${tarea.user.nombre} + ' ' + ${tarea.user.apellidos}"></p>
+                <!-- Botón Comenzar -->
+                <form th:action="@{/comenzar/{id}(id=${tarea.idTareaMonitor})}" method="post" th:if="${tarea.estadoTarea == T(com.example.practicatfgbd.entities.EstadoTarea).PENDIENTE}">
+                    <button type="submit" class="comenzar-btn">Comenzar</button>
+                </form>
+                <!-- Botón Terminar -->
+                <form th:action="@{/terminar/{id}(id=${tarea.idTareaMonitor})}" method="post" th:if="${tarea.estadoTarea == T(com.example.practicatfgbd.entities.EstadoTarea).EN_PROGRESO}">
+                    <button type="submit" class="terminar-btn">Terminar</button>
+                </form>
+                <form th:action="@{/mis-tareas/{id}(id=${tarea.idTareaMonitor})}" method="post" th:if="${tarea.estadoTarea == T(com.example.practicatfgbd.entities.EstadoTarea).COMPLETADA}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="delete-btn"
+                            onclick="return confirm('¿Estás seguro de eliminar esta tarea?')">Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2024 Asociación de Campamento Aventura. Todos los derechos reservados.
+</footer>
+<form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+</body>
+
+</html>

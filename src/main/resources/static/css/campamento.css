@@ -1,0 +1,68 @@
+/* Estilos para la página de Campamento */
+
+body {
+    background-color: #bdc3c7;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin-left: 250px; /* Ancho de la barra lateral */
+    padding: 20px;
+}
+
+header {
+    background-color: #34495e; /* Color de fondo azul oscuro */
+    color: white; /* Color de texto blanco */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 28px;
+    color: #ffffff; /* Color de texto blanco */
+}
+
+header a {
+    text-decoration: none;
+    color: #ffffff; /* Color de texto blanco */
+    padding: 8px 15px;
+    background-color: #3498db; /* Color de fondo azul */
+    border-radius: 5px;
+}
+
+header a:hover {
+    background-color: #2980b9; /* Color de fondo azul más oscuro al pasar el ratón */
+}
+
+.camp-info {
+    margin-top: 30px;
+}
+
+.camp-info h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.camp-info p {
+    font-size: 18px;
+    color: #555;
+}
+
+.camp-info p span {
+    font-weight: bold;
+    color: #00aaff;
+}
+
+footer {
+    background-color: #34495e; /* Color de fondo azul oscuro */
+    color: #ffffff; /* Color de texto blanco */
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed; /* Fija el pie de página */
+    bottom: 0; /* Lo coloca en la parte inferior */
+    width: 100%; /* Ancho completo */
+}

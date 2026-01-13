@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subgrupos</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/subgrupos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<aside class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></aside>
+
+<main class="content">
+    <header>
+        <h1>Subgrupos</h1>
+        <div>
+            <button id="openModalBtn" class="add-group">Añadir subgrupo</button>
+            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+    </header>
+
+    <div th:classappend="${errorMessage != null && !errorMessage.isEmpty()} ? 'show' : ''" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div class="subgroups-container">
+        <!-- Aquí se mostrarán los subgrupos -->
+        <div th:each="subgrupo : ${subgrupos}">
+            <div class="subgroup-card">
+                <h3 th:text="${subgrupo.nombre}">Nombre del subgrupo</h3>
+                <p>Número de integrantes: <span th:text="${subgrupo.numeroIntegrantes}">0</span></p>
+                <form th:action="@{/subgrupos/{id}(id=${subgrupo.idSubgrupo})}" method="post" class="eliminar-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="delete-btn" onclick="return confirm('¿Estás seguro de eliminar este subgrupos?')">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2024 Asociación de Campamento Aventura. Todos los derechos reservados.</p>
+</footer>
+
+<!-- Modal para añadir subgrupo -->
+<div id="addSubgroupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Añadir nuevo subgrupo</h2>
+        <form th:action="@{/add-subgrupo/{id}(id=${grupo.idGrupo})}" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="numeroIntegrantes">Número de integrantes:</label>
+            <input type="number" id="numeroIntegrantes" name="numeroIntegrantes" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+</div>
+
+<script src="/js/modalSubgrupo.js"></script>
+</body>
+</html>

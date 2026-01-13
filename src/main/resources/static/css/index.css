@@ -1,0 +1,228 @@
+/* Estilo global */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../images/imagenFondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo para el contenedor general */
+.container {
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con transparencia */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    width: 100%;
+}
+
+.container h2 {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.container div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.container input,
+.container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.container button {
+    background-color: #007bff; /* Azul claro */
+    color: white;
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.container button:hover {
+    background-color: #0056b3; /* Azul más oscuro al hacer hover */
+}
+
+.container p {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.container a {
+    color: #ffffff; /* Blanco */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo específico para el inicio de sesión */
+.login-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con transparencia */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #007bff; /* Azul claro */
+}
+
+.login-container div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login-container button {
+    background-color: #007bff; /* Azul claro */
+    color: white;
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.login-container button:hover {
+    background-color: #0056b3; /* Azul más oscuro al hacer hover */
+}
+
+.login-container p {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.login-container a {
+    color: #007bff; /* Azul claro */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo específico para el registro */
+.register-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con transparencia */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #007bff; /* Azul claro */
+}
+
+.register-container div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.register-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.register-container button {
+    background-color: #007bff; /* Azul claro */
+    color: white;
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.register-container button:hover {
+    background-color: #0056b3; /* Azul más oscuro al hacer hover */
+}
+
+.register-container p {
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.register-container a {
+    color: #007bff; /* Azul claro */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}

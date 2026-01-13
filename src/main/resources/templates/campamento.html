@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Información del Campamento</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/campamento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+<div class="content">
+    <header>
+        <h1>Información del Campamento</h1>
+        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+    </header>
+
+    <div class="camp-info">
+        <div class="card">
+            <h2>Nombre de la asociación</h2>
+            <p>Nombre de la Asociación XYZ</p>
+        </div>
+        <div class="card">
+            <h2>Lugar</h2>
+            <p>Campamento en la Montaña Verde</p>
+        </div>
+        <div class="card">
+            <h2>Niños inscritos</h2>
+            <p>100 niños</p>
+        </div>
+        <div class="card">
+            <h2>Monitores</h2>
+            <p>20 monitores</p>
+        </div>
+        <div class="card">
+            <h2>Precio</h2>
+            <p>$200 por niño</p>
+        </div>
+        <div class="card">
+            <h2>Fecha de inicio</h2>
+            <p>1 de julio de 2024</p>
+        </div>
+        <div class="card">
+            <h2>Fecha de fin</h2>
+            <p>15 de julio de 2024</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2024 Asociación de Campamento Aventura. Todos los derechos reservados.</p>
+</footer>
+
+<div>
+    <form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+</div>
+</body>
+</html>

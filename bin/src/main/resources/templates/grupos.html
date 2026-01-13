@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/grupos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+
+<div class="content">
+    <header>
+        <h1>Grupos</h1>
+        <div>
+            <button id="openModalBtn" class="add-group">Añadir grupo</button>
+            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+    </header>
+
+    <div th:classappend="${errorMessage != null && !errorMessage.isEmpty()} ? 'show' : ''" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div class="grid-container">
+        <div class="grupo-card" th:each="grupo : ${grupos}">
+            <h2 th:text="${grupo.nombre}">Nombre del grupo</h2>
+            <p>Edades: <span th:text="${grupo.edades}">0</span></p>
+            <a th:href="@{/subgrupos/{id}(id=${grupo.idGrupo})}" class="ver-subgrupos-btn">Ver subgrupos</a>
+            <form th:action="@{/grupos/{id}(id=${grupo.idGrupo})}" method="post" class="eliminar-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="delete-btn" onclick="return confirm('¿Estás seguro de eliminar este grupo?')">Eliminar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2024 Asociación de Campamento Aventura. Todos los derechos reservados.</p>
+</footer>
+
+<!-- Modal para añadir grupo -->
+<div id="addGroupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Añadir nuevo grupo</h2>
+        <form th:action="@{/add-group}" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="edades">Edades:</label>
+            <input type="number" id="edades" name="edades" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+    <form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+</div>
+
+<script src="/js/modalGrupo.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Juegos</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/juegos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+<div class="sidebar" th:replace="fragmentos/sidebar :: sidebar"></div>
+<div class="content">
+    <header>
+        <h1>Juegos</h1>
+        <div>
+            <!-- Agregar checkboxes para filtrar por tipo de juego -->
+            <label><input type="checkbox" class="tipo-checkbox" name="tipo" value="DINAMICA"> Dinámica</label>
+            <label><input type="checkbox" class="tipo-checkbox" name="tipo" value="JUEGO_EXTERIOR"> Juego Exterior</label>
+            <label><input type="checkbox" class="tipo-checkbox" name="tipo" value="JUEGO_INTERIOR"> Juego Interior</label>
+            <label><input type="checkbox" class="tipo-checkbox" name="tipo" value="JUEGO_NOCTURNO"> Juego Nocturno</label>
+            <label><input type="checkbox" class="tipo-checkbox" name="tipo" value="BALADAS"> Baladas</label>
+
+            <button id="openModalBtn" class="add-group">Añadir juegos</button>
+            <a class="logout-btn" href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
+        </div>
+
+    </header>
+
+    <div class="grid-container">
+        <div class="juego-card" th:each="juego : ${juegos}" th:data-tipo="${juego.tipo}">
+            <img th:src="@{${juego.imagenRuta}}" alt="Imagen del Juego">
+            <h2 th:text="${juego.titulo}">Título del Juego</h2>
+            <p>Duración: <span th:text="${juego.duracion}">0</span> minutos</p>
+            <p>Espacios: <span th:text="${juego.espacios}">Espacios del Juego</span></p>
+            <button th:id="'btn-ver-' + ${juego.idJuegos}"
+                    class="btn-ver"
+                    th:data-id="${juego.idJuegos}"
+                    th:data-titulo="${juego.titulo}"
+                    th:data-tipo="${juego.tipo}"
+                    th:data-duracion="${juego.duracion}"
+                    th:data-espacios="${juego.espacios}"
+                    th:data-descripcion="${juego.descripcion}"
+                    th:data-materiales="${juego.materiales != null ? 'Funcionaaaa' : 'No está en ningún material'}">
+                    VER
+            </button>
+            <form th:action="@{/juegos/{id}(id=${juego.idJuegos})}" method="post" class="eliminar-form">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="delete-btn" onclick="return confirm('¿Estás seguro de eliminar este juego?')">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2024 Asociación de Campamento Aventura. Todos los derechos reservados.</p>
+</footer>
+<form th:action="@{/usuario/logout}" method="post" id="logoutForm"></form>
+
+<!-- Modal para ver detalles del juego -->
+<div id="juegoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalJuegoTitulo">Título del Juego</h2>
+        <p id="modalJuegoTipo">Tipo de Actividad: </p>
+        <p id="modalJuegoDuracion">Duración: </p>
+        <p id="modalJuegoEspacios">Espacios: </p>
+        <p id="modalJuegoDescripcion">Descripción: </p>
+        <p id="modalJuegoMateriales">Materiales: </p>
+    </div>
+</div>
+
+<!-- Modal para añadir juegos -->
+<div id="addJuegoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddJuegoModal()">&times;</span>
+        <h2>Añadir nuevo juego</h2>
+        <form th:action="@{/juegos}" method="post">
+            <label for="tipo">Tipo de Actividad:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="DINAMICA">Dinámica</option>
+                <option value="JUEGO_EXTERIOR">Juego Exterior</option>
+                <option value="JUEGO_INTERIOR">Juego Interior</option>
+                <option value="JUEGO_NOCTURNO">Juego Nocturno</option>
+                <option value="BALADAS">Baladas</option>
+            </select>
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+            <label for="duracion">Duración (minutos):</label>
+            <input type="number" id="duracion" name="duracion" required>
+            <label for="espacios">Espacios:</label>
+            <input type="text" id="espacios" name="espacios" required>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Include JavaScript -->
+<script src="/js/modalJuego.js"></script>
+<script src="/js/verJuego.js"></script>
+<script src="/js/filtrarJuegos.js"></script>
+</body>
+</html>
